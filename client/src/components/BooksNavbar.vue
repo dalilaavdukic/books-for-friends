@@ -21,7 +21,7 @@ export default {
     max-height: 3rem;
   }
   &.app-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 }
