@@ -1,28 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <books-navbar></books-navbar>
+    <div class="columns">
+      <books-search></books-search>
+      <books-recommendations></books-recommendations>
+    </div>
+    <books-footer></books-footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import "bulma/css/bulma.css";
+import BooksNavbar from "@/components/BooksNavbar";
+import BooksFooter from "@/components/BooksFooter";
+import BooksSearch from "@/components/BooksSearch";
+import BooksRecommendations from "@/components/BooksRecommendations";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { 
+    BooksFooter, 
+    BooksNavbar, 
+    BooksSearch, 
+    BooksRecommendations 
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss" scoped>
 </style>
