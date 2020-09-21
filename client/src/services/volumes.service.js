@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+const endpoint = 'volumes';
+const api = process.env.VUE_APP_GOOGLE_BOOKS_API;
+const apiKey = process.env.VUE_APP_API_KEY;
+
 export default {
   getVolumes(searchTerm) {
-    console.log(searchTerm);
-    return axios.get('https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyAN5moNYZ9vD4IuYqcsddBekmWo5FW5PYA');
+    return axios.get(`${api}/${endpoint}?q=${searchTerm}&maxResults=40&key=${apiKey}`);
   }
 }
