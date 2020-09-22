@@ -6,6 +6,6 @@ const apiKey = process.env.VUE_APP_API_KEY;
 
 export default {
   getVolumes(searchTerm) {
-    return axios.get(`${api}/${endpoint}?q=${searchTerm}&maxResults=40&key=${apiKey}`);
+    return axios.get(`${api}/${endpoint}?q=${searchTerm}&language=en&maxResults=20&key=${apiKey}`);
   }
 }

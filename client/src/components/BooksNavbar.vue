@@ -16,13 +16,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar-item {
-  img {
-    max-height: 3rem;
-  }
-  &.app-title {
-    font-size: 1.5rem;
-    font-weight: bold;
+.navbar {
+  min-height: 4rem;
+  .navbar-item {
+    img {
+      max-height: 3rem;
+    }
+    &.app-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
   }
 }
 </style>

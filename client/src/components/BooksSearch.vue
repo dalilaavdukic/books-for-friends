@@ -15,25 +15,31 @@
         </div>
       </div>
     </form>
-    <div v-if="foundBooks.length && !errorOccured">{{foundBooks}}</div>
-    <div v-if="errorOccured">An error occured, please try refining your search and try again.</div>
+    <div class="search-results">
+      <div v-if="foundBooks.length && !errorOccured">
+        <books-found></books-found>
+      </div>
+      <div v-if="errorOccured">An error occured, please try refining your search and try again.</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import BooksFound from "@/components/BooksFound";
 
 export default {
   name: "BooksSearch",
+  components: { BooksFound },
   data() {
     return {
       searchTerm: "",
       requestInProgress: false,
-      errorOccured: false
+      errorOccured: false,
     };
   },
   computed: {
-    ...mapGetters(["foundBooks"])
+    ...mapGetters(["foundBooks"]),
   },
   methods: {
     ...mapActions(["getBooks"]),
@@ -55,4 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.search-results {
+  padding-top: 2rem;
+}
 </style>

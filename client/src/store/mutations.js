@@ -12,6 +12,8 @@ export default {
         publishedDate: bookInfo.publishedDate,
         publisher: bookInfo.publisher,
         image: bookInfo.imageLinks?.smallThumbnail,
+        description: bookInfo.description,
+        shortDescription: bookInfo.description?.substring(0, 150)
       };
     });
   },
