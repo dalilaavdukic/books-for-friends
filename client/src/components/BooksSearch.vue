@@ -20,6 +20,7 @@
         <books-found></books-found>
       </div>
       <div v-if="errorOccured">An error occured, please try refining your search and try again.</div>
+      <div v-if="noResults">Unfortunately, we couldn't find any books that match your search. Please try searching something else.</div>
     </div>
   </div>
 </template>
@@ -36,6 +37,7 @@ export default {
       searchTerm: "",
       requestInProgress: false,
       errorOccured: false,
+      noResults: false
     };
   },
   computed: {
@@ -45,14 +47,17 @@ export default {
     ...mapActions(["getBooks"]),
     searchBooks() {
       this.requestInProgress = true;
+      this.noResults = false;
       this.getBooks(this.searchTerm)
         .then(() => {
           this.errorOccured = false;
           this.requestInProgress = false;
+          this.noResults = this.foundBooks.length === 0;
         })
         .catch((error) => {
           this.requestInProgress = false;
           this.errorOccured = true;
+          this.noResults = false;
           console.log(error);
         });
     },

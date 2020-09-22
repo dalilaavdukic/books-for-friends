@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="media-right">
-        <button class="delete"></button>
+        <button class="button is-info is-light">Add</button>
       </div>
     </article>
   </div>

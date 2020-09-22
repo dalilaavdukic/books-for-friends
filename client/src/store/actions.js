@@ -5,7 +5,11 @@ export default {
   getBooks({commit}, searchTerm) {
     return new Promise((resolve, reject) => {
       volumesService.getVolumes(searchTerm).then(response => {
-        commit(SET_FOUND_BOOKS, response.data.items)
+        if (response.data.totalItems) {
+          commit(SET_FOUND_BOOKS, response.data.items)
+        } else {
+          commit(SET_FOUND_BOOKS, [])
+        }
         resolve(response);
       }).catch((error) => {
         reject(error.response.data.error.message);
