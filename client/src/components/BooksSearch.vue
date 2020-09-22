@@ -1,5 +1,5 @@
 <template>
-  <div class="column section">
+  <div class="book-search-container">
     <form @submit.prevent="searchBooks()">
       <div class="field is-grouped">
         <div class="control is-expanded">

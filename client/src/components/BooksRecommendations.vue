@@ -1,5 +1,5 @@
 <template>
-  <div class="column section">
+  <div class="book-recommendations-container">
     see list
   </div>
 </template>
