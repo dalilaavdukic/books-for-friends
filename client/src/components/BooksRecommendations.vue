@@ -1,13 +1,17 @@
 <template>
   <div class="book-recommendations-container">
-    see list
+    <div v-for="book in recommendations" :key="book.id">{{book.title}}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BooksRecommendations",
-  components: {},
+  computed: {
+    ...mapGetters(["recommendations"]),
+  },
 };
 </script>
 
