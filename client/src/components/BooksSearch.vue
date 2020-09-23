@@ -66,7 +66,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-results {
-  padding-top: 2rem;
+.book-search-container {
+  padding-right: 2rem;
+  .search-results {
+    padding-top: 2rem;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="book-recommendations-container">
+  <div class="box book-recommendations-container">
     <div v-for="book in recommendations" :key="book.id">{{book.title}}</div>
   </div>
 </template>
@@ -16,4 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.book-recommendations-container {
+  width: 100%;
+}
 </style>

@@ -2,10 +2,10 @@
   <div id="app">
     <books-navbar></books-navbar>
     <div class="main-content">
-      <div>
+      <div class="left-content">
         <books-search></books-search>
       </div>
-      <div>
+      <div class="right-content">
         <books-recommendations></books-recommendations>
       </div>
     </div>
@@ -41,8 +41,8 @@ export default {
     justify-content: center;
     flex-direction: row;
     flex: 1 0 auto;
-    div {
-      margin: 1rem;
+    margin: 2rem;
+    .left-content, .right-content {
       width: 100%;
     }
   }
