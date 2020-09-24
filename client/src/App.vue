@@ -42,6 +42,7 @@ export default {
     flex-direction: row;
     flex: 1 0 auto;
     margin: 2rem;
+    margin-bottom: 1rem;
     .left-content, .right-content {
       width: 100%;
     }

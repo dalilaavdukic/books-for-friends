@@ -1,6 +1,7 @@
 import { SET_FOUND_BOOKS } from "./mutation-types";
 import { ADD_BOOK_TO_RECOMMENDATIONS } from "./mutation-types";
 import { REMOVE_BOOK_FROM_RECOMMENDATIONS} from "./mutation-types";
+import { CLEAR_RECOMMENDATIONS} from "./mutation-types";
 
 export default {
   [SET_FOUND_BOOKS](state, items) {
@@ -26,5 +27,8 @@ export default {
   [REMOVE_BOOK_FROM_RECOMMENDATIONS](state, book) {
     delete state.recommendations[book.id];
     state.recommendations = {...state.recommendations};
+  },
+  [CLEAR_RECOMMENDATIONS](state) {
+    state.recommendations = {...{}};
   }
 };

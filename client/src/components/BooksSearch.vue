@@ -69,7 +69,10 @@ export default {
 .book-search-container {
   padding-right: 2rem;
   .search-results {
-    padding-top: 2rem;
+    margin-top: 1rem;
+    padding-right: 1rem;
+    overflow-y: scroll;
+    max-height: calc(100vh - 21rem)
   }
 }
 </style>
