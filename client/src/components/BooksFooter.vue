@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "BooksFooter",
+  name: 'BooksFooter',
 };
 </script>
 

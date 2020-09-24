@@ -1,11 +1,11 @@
-import { SET_FOUND_BOOKS } from "./mutation-types";
-import { ADD_BOOK_TO_RECOMMENDATIONS } from "./mutation-types";
-import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from "./mutation-types";
-import { CLEAR_RECOMMENDATIONS } from "./mutation-types";
+import { SET_FOUND_BOOKS } from './mutation-types';
+import { ADD_BOOK_TO_RECOMMENDATIONS } from './mutation-types';
+import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from './mutation-types';
+import { CLEAR_RECOMMENDATIONS } from './mutation-types';
 
 export default {
   [SET_FOUND_BOOKS](state, items) {
-    state.foundBooks = items.map((volume) => {
+    state.foundBooks = items.map(volume => {
       const bookInfo = volume.volumeInfo;
       return {
         id: volume.id,
@@ -17,14 +17,14 @@ export default {
         publisher: bookInfo.publisher,
         image: bookInfo.imageLinks?.smallThumbnail,
         description: bookInfo.description,
-        shortDescription: bookInfo.description?.substring(0, 150),
+        shortDescription: bookInfo.description?.substring(0, 150)
       };
     });
   },
   [ADD_BOOK_TO_RECOMMENDATIONS](state, book) {
     state.recommendations = {
       ...state.recommendations,
-      [book.id]: { ...book, notes: "" },
+      [book.id]: { ...book, notes: '' }
     };
   },
   [REMOVE_BOOK_FROM_RECOMMENDATIONS](state, book) {
@@ -33,5 +33,5 @@ export default {
   },
   [CLEAR_RECOMMENDATIONS](state) {
     state.recommendations = {};
-  },
+  }
 };

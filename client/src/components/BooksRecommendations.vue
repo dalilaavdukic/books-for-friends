@@ -31,15 +31,15 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { CLEAR_RECOMMENDATIONS } from "@/store/mutation-types";
-import BookRecommendationBox from "@/components/BookRecommendationBox";
+import { mapGetters, mapMutations } from 'vuex';
+import { CLEAR_RECOMMENDATIONS } from '@/store/mutation-types';
+import BookRecommendationBox from '@/components/BookRecommendationBox';
 
 export default {
-  name: "BooksRecommendations",
-  components: {BookRecommendationBox},
+  name: 'BooksRecommendations',
+  components: { BookRecommendationBox },
   computed: {
-    ...mapGetters(["recommendations"]),
+    ...mapGetters(['recommendations']),
     noRecommendations: function () {
       for (let key in this.recommendations) {
         return false;

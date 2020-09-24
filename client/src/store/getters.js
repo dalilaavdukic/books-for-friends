@@ -1,8 +1,8 @@
 export default {
   foundBooks: state => {
-    return state.foundBooks
+    return state.foundBooks;
   },
   recommendations: state => {
-    return state.recommendations
+    return state.recommendations;
   }
-}
+};

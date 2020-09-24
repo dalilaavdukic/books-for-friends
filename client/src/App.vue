@@ -14,19 +14,19 @@
 </template>
 
 <script>
-import "bulma/css/bulma.css";
-import BooksNavbar from "@/components/BooksNavbar";
-import BooksFooter from "@/components/BooksFooter";
-import BooksSearch from "@/components/BooksSearch";
-import BooksRecommendations from "@/components/BooksRecommendations";
+import 'bulma/css/bulma.css';
+import BooksNavbar from '@/components/BooksNavbar';
+import BooksFooter from '@/components/BooksFooter';
+import BooksSearch from '@/components/BooksSearch';
+import BooksRecommendations from '@/components/BooksRecommendations';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     BooksFooter,
     BooksNavbar,
     BooksSearch,
-    BooksRecommendations
+    BooksRecommendations,
   },
 };
 </script>
@@ -43,7 +43,8 @@ export default {
     flex: 1 0 auto;
     margin: 2rem;
     margin-bottom: 1rem;
-    .left-content, .right-content {
+    .left-content,
+    .right-content {
       width: 100%;
     }
   }

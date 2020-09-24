@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from "@/store/mutation-types";
+import { mapMutations } from 'vuex';
+import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from '@/store/mutation-types';
 
 export default {
-  name: "BookRecommendationBox",
+  name: 'BookRecommendationBox',
   props: {
     book: {
       type: Object,
@@ -37,9 +37,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
-      REMOVE_BOOK_FROM_RECOMMENDATIONS,
-    ]),
+    ...mapMutations([REMOVE_BOOK_FROM_RECOMMENDATIONS]),
     removeBook() {
       this[REMOVE_BOOK_FROM_RECOMMENDATIONS](this.book);
     },
