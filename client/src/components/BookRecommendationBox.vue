@@ -15,6 +15,8 @@
       <div>Notes:</div>
       <p class="control">
         <textarea
+          :value="book.notes"
+          @input="updateNotes"
           class="textarea is-small"
           rows="2"
           placeholder="Add notes about this book"
@@ -27,6 +29,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from '@/store/mutation-types';
+import { EDIT_RECOMMENDATION } from '@/store/mutation-types';
 
 export default {
   name: 'BookRecommendationBox',
@@ -37,9 +40,15 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([REMOVE_BOOK_FROM_RECOMMENDATIONS]),
+    ...mapMutations([REMOVE_BOOK_FROM_RECOMMENDATIONS, EDIT_RECOMMENDATION]),
     removeBook() {
       this[REMOVE_BOOK_FROM_RECOMMENDATIONS](this.book);
+    },
+    updateNotes(e) {
+      this[EDIT_RECOMMENDATION]({
+        notes: e.target.value,
+        bookId: this.book.id,
+      });
     },
   },
 };

@@ -3,6 +3,8 @@ import { ADD_BOOK_TO_RECOMMENDATIONS } from './mutation-types';
 import { REMOVE_BOOK_FROM_RECOMMENDATIONS } from './mutation-types';
 import { CLEAR_RECOMMENDATIONS } from './mutation-types';
 import { CLEAR_FOUND_BOOKS } from './mutation-types';
+import { EDIT_RECOMMENDATION } from './mutation-types';
+import { SET_FRIEND_NAME } from './mutation-types';
 
 export default {
   [SET_FOUND_BOOKS](state, items) {
@@ -37,5 +39,11 @@ export default {
   },
   [CLEAR_FOUND_BOOKS](state) {
     state.foundBooks = [];
+  },
+  [EDIT_RECOMMENDATION](state, payload) {
+    state.recommendations[payload.bookId].notes = payload.notes;
+  },
+  [SET_FRIEND_NAME](state, name) {
+    state.friendName = name;
   }
 };

@@ -4,5 +4,8 @@ export default {
   },
   recommendations: state => {
     return state.recommendations;
+  },
+  friendName: state => {
+    return state.friendName;
   }
 };

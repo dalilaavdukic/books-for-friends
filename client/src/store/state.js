@@ -1,4 +1,5 @@
 export default {
   foundBooks: [],
-  recommendations: {}
+  recommendations: {},
+  friendName: ''
 };
