@@ -22,7 +22,7 @@
       <button
         :disabled="noRecommendations"
         @click="clearRecommendationsList()"
-        class="button is-link is-outlined"
+        class="button"
       >
         Clear
       </button>

@@ -10,7 +10,7 @@
             placeholder="Search for books"
           />
         </div>
-        <div class="control">
+        <div class="buttons has-addons">
           <button
             :disabled="!searchTerm || requestInProgress"
             type="submit"
@@ -18,6 +18,14 @@
             :class="{ 'is-loading': requestInProgress }"
           >
             Search
+          </button>
+          <button
+            @click="clearSearch()"
+            type="button"
+            :disabled="requestInProgress"
+            class="button"
+          >
+            Clear
           </button>
         </div>
       </div>
@@ -38,7 +46,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { CLEAR_FOUND_BOOKS } from '@/store/mutation-types';
 import BooksFound from '@/components/BooksFound';
 
 export default {
@@ -57,6 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['getBooks']),
+    ...mapMutations([CLEAR_FOUND_BOOKS]),
     searchBooks() {
       this.requestInProgress = true;
       this.noResults = false;
@@ -73,6 +83,10 @@ export default {
           console.log(error);
         });
     },
+    clearSearch() {
+      this.searchTerm = '';
+      this[CLEAR_FOUND_BOOKS]();
+    }
   },
 };
 </script>
