@@ -10,12 +10,17 @@
         />
       </p>
     </div>
-    <div class="panel-block" v-for="book in recommendations" :key="book.id">
-      {{ book.title }}
+    <div class="book-recommendations-container">
+      <div class="panel-block" v-for="book in recommendations" :key="book.id">
+        <book-recommendation-box :book="book"></book-recommendation-box>
+      </div>
     </div>
     <div class="panel-block buttons">
-      <button class="button is-primary">Save</button>
+      <button :disabled="noRecommendations" class="button is-primary">
+        Save
+      </button>
       <button
+        :disabled="noRecommendations"
         @click="clearRecommendationsList()"
         class="button is-link is-outlined"
       >
@@ -28,11 +33,19 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { CLEAR_RECOMMENDATIONS } from "@/store/mutation-types";
+import BookRecommendationBox from "@/components/BookRecommendationBox";
 
 export default {
   name: "BooksRecommendations",
+  components: {BookRecommendationBox},
   computed: {
     ...mapGetters(["recommendations"]),
+    noRecommendations: function () {
+      for (let key in this.recommendations) {
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
     ...mapMutations([CLEAR_RECOMMENDATIONS]),
@@ -46,6 +59,8 @@ export default {
 <style lang="scss" scoped>
 .book-recommendations-container {
   width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 23.5rem);
 }
 .panel-block {
   &.buttons {

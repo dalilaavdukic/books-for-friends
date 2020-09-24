@@ -71,8 +71,8 @@ export default {
   .search-results {
     margin-top: 1rem;
     padding-right: 1rem;
-    overflow-y: scroll;
-    max-height: calc(100vh - 21rem)
+    overflow-y: auto;
+    height: calc(100vh - 16.5rem)
   }
 }
 </style>
