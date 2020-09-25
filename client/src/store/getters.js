@@ -7,5 +7,11 @@ export default {
   },
   friendName: state => {
     return state.friendName;
+  },
+  completeRecommendation: state => {
+    return {
+      name: state.friendName,
+      books: state.recommendations
+    }
   }
 };

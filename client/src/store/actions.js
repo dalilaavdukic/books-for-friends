@@ -1,4 +1,5 @@
 import volumesService from '@/services/volumes.service';
+import recommendationsService from '@/services/recommendations.service';
 import { SET_FOUND_BOOKS } from './mutation-types';
 
 export default {
@@ -18,5 +19,10 @@ export default {
           reject(error.response.data.error.message);
         });
     });
+  },
+  saveBooks({ getters }) {
+    return recommendationsService.createRecommendations(
+      getters.completeRecommendation
+    );
   }
 };

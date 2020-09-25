@@ -2,21 +2,42 @@
   <nav class="panel">
     <p class="panel-heading">Recommend to a friend</p>
     <div class="panel-block">
-      <p class="control">
-        <input
-          :value="friendName"
-          @input="updateFriendName"
-          class="input"
-          :class="{ 'is-danger': !formValid && formSubmitted }"
-          type="text"
-          placeholder="Recommend these books to..."
-        />
-        <small v-if="!formValid && formSubmitted" class="has-text-danger"
-          >You must enter a friend's name</small
+      <div class="rec-name-and-messages">
+        <div v-if="errorOccured" class="notification is-danger is-light">
+          <p>
+            An error occured while trying to save these recommendations. Please
+            try again.
+          </p>
+        </div>
+        <div
+          v-if="recommendationsSaved"
+          class="notification is-success is-light"
         >
-      </p>
+          <p>These recommendations have been saved successfully!</p>
+        </div>
+        <p class="control">
+          <input
+            :disabled="requestInProgress"
+            :value="friendName"
+            @input="updateFriendName"
+            class="input"
+            :class="{ 'is-danger': !formValid && formSubmitted }"
+            type="text"
+            placeholder="Recommend these books to..."
+          />
+          <small v-if="!formValid && formSubmitted" class="has-text-danger"
+            >You must enter a friend's name</small
+          >
+        </p>
+      </div>
     </div>
-    <div class="book-recommendations-container">
+    <div
+      class="book-recommendations-container"
+      :class="{
+        'showing-messages': errorOccured || recommendationsSaved,
+        'showing-validation': !formValid && formSubmitted,
+      }"
+    >
       <div class="panel-block" v-for="book in recommendations" :key="book.id">
         <book-recommendation-box :book="book"></book-recommendation-box>
       </div>
@@ -24,13 +45,14 @@
     <div class="panel-block buttons">
       <button
         @click="saveRecommendations()"
-        :disabled="noRecommendations"
+        :disabled="noRecommendations || requestInProgress"
         class="button is-primary"
+        :class="{ 'is-loading': requestInProgress }"
       >
         Save
       </button>
       <button
-        :disabled="noRecommendations"
+        :disabled="noRecommendations || requestInProgress"
         @click="clearRecommendationsList()"
         class="button"
       >
@@ -41,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { CLEAR_RECOMMENDATIONS } from '@/store/mutation-types';
 import { SET_FRIEND_NAME } from '@/store/mutation-types';
 import BookRecommendationBox from '@/components/BookRecommendationBox';
@@ -64,11 +86,19 @@ export default {
   data() {
     return {
       formSubmitted: false,
+      recommendationsSaved: false,
+      requestInProgress: false,
+      errorOccured: false,
     };
   },
   methods: {
     ...mapMutations([CLEAR_RECOMMENDATIONS, SET_FRIEND_NAME]),
+    ...mapActions(['saveBooks']),
     clearRecommendationsList() {
+      this.errorOccured = false;
+      this.formSubmitted = false;
+      this.recommendationsSaved = false;
+      this[SET_FRIEND_NAME]('');
       this[CLEAR_RECOMMENDATIONS]();
     },
     updateFriendName(e) {
@@ -76,7 +106,20 @@ export default {
     },
     saveRecommendations() {
       this.formSubmitted = true;
+      this.errorOccured = false;
       if (!this.formValid) return;
+      this.requestInProgress = true;
+      this.saveBooks()
+        .then(() => {
+          this.requestInProgress = false;
+          this.recommendationsSaved = true;
+        })
+        .catch((error) => {
+          this.requestInProgress = false;
+          this.recommendationsSaved = false;
+          this.errorOccured = true;
+          console.log(error);
+        });
     },
   },
 };
@@ -86,14 +129,30 @@ export default {
 .book-recommendations-container {
   width: 100%;
   overflow-y: auto;
-  height: calc(100vh - 23.5rem);
+  height: calc(100vh - 24rem);
+  &.showing-messages {
+    height: calc(100vh - 23.5rem - 9rem);
+  }
+  &.showing-validation {
+    height: calc(100vh - 23.5rem - 2rem);
+  }
 }
 .panel-block {
   &.buttons {
     justify-content: space-between;
     .button {
-      width: 49%;
+      width: 48%;
     }
+  }
+}
+.rec-name-and-messages {
+  width: 100%;
+  .notification {
+    margin-bottom: 0.6rem;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
