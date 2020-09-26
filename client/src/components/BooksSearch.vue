@@ -85,6 +85,8 @@ export default {
     },
     clearSearch() {
       this.searchTerm = '';
+      this.noResults = false;
+      this.errorOccured = false;
       this[CLEAR_FOUND_BOOKS]();
     }
   },
@@ -93,19 +95,27 @@ export default {
 
 <style lang="scss" scoped>
 .book-search-container {
-  padding-right: 2rem;
+  @media screen and (min-width: $tablet) {
+    padding-right: 2rem;
+    margin-bottom: 0;
+  }
+  margin-bottom: 1rem;
   .search-results {
     margin-top: 1rem;
-    padding-right: 1rem;
-    overflow-y: auto;
-    height: calc(100vh - 16.5rem);
+    @media screen and (min-width: $tablet) {
+      padding-right: 1rem;
+      overflow-y: auto;
+      height: calc(100vh - 16.5rem);
+    }
   }
   .buttons {
     flex-wrap: nowrap;
   }
   .notification {
-    margin-left: 1rem;
-    height: calc(100vh - 16.5rem);
+    @media screen and (min-width: $tablet) {
+      margin-left: 1rem;
+      height: calc(100vh - 16.5rem);
+    }
     display: flex;
     justify-content: center;
     align-items: center;

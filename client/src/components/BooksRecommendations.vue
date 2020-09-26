@@ -146,13 +146,15 @@ export default {
 <style lang="scss" scoped>
 .book-recommendations-container {
   width: 100%;
-  overflow-y: auto;
-  height: calc(100vh - 24.5rem);
-  &.showing-messages {
-    height: calc(100vh - 24rem - 9rem);
-  }
-  &.showing-validation {
-    height: calc(100vh - 24rem - 2rem);
+  @media screen and (min-width: $tablet) {
+    overflow-y: auto;
+    height: calc(100vh - 24.5rem);
+    &.showing-messages {
+      height: calc(100vh - 24rem - 9rem);
+    }
+    &.showing-validation {
+      height: calc(100vh - 24rem - 2rem);
+    }
   }
 }
 .panel-block {

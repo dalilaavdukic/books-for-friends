@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <span class="navbar-item">
         <img
-          src="../assets/books-for-friends.png"
+          src="../assets/images/books-for-friends.png"
           alt="Books"
           height="90"
           width="90"

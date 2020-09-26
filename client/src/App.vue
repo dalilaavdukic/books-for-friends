@@ -38,11 +38,15 @@ export default {
   flex-direction: column;
   .main-content {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
+    @media screen and (min-width: $tablet) {
+      justify-content: center;
+      flex-direction: row;
+    }
+    flex-direction: column;
     flex: 1 0 auto;
     margin: 2rem;
     margin-bottom: 1rem;
+
     .left-content,
     .right-content {
       width: 100%;

@@ -4,7 +4,7 @@
       <figure class="media-left">
         <p class="image is-96x96">
           <img v-if="book.image" :src="book.image" />
-          <img v-else src="../assets/bookcover-placeholder.jpg" />
+          <img v-else src="../assets/images/bookcover-placeholder.jpg" />
         </p>
       </figure>
       <div class="media-content">
@@ -108,6 +108,19 @@ export default {
   min-height: 10rem;
   .book-description-section {
     margin-top: 0.5rem;
+    display: none;
+    @media screen and (min-width: $tablet) and (min-width: $portal) {
+      display: block;
+    }
+    @media screen and (min-width: $large-phone) and (max-width: $tablet) {
+      display: block;
+    }
+  }
+  .media-left {
+    display: none;
+    @media screen and (min-width: $large-phone) {
+      display: block;
+    }
   }
   .media-right {
     button {
