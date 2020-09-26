@@ -1,65 +1,70 @@
 <template>
-  <nav class="panel">
-    <p class="panel-heading">Recommend to a friend</p>
-    <div class="panel-block">
-      <div class="rec-name-and-messages">
-        <div v-if="errorOccured" class="notification is-danger is-light">
-          <p>
-            An error occured while trying to save these recommendations. Please
-            try again.
+  <form @submit.prevent="saveRecommendations()">
+    <nav class="panel">
+      <p class="panel-heading">Recommend to a friend</p>
+      <div class="panel-block">
+        <div class="rec-name-and-messages">
+          <div v-if="errorOccured" class="notification is-danger is-light">
+            <p>
+              An error occured while trying to save these recommendations.
+              Please try again.
+            </p>
+          </div>
+          <div
+            v-if="recommendationsSaved"
+            class="notification is-success is-light"
+          >
+            <p>These recommendations have been saved successfully!</p>
+          </div>
+          <p class="control">
+            <input
+              :disabled="requestInProgress"
+              :value="friendName"
+              @input="updateFriendName"
+              class="input"
+              :class="{ 'is-danger': invalidFormSubmitted }"
+              type="text"
+              placeholder="Recommend these books to..."
+            />
+            <small v-if="invalidFormSubmitted" class="has-text-danger"
+              >You must enter a friend's name</small
+            >
           </p>
         </div>
-        <div
-          v-if="recommendationsSaved"
-          class="notification is-success is-light"
-        >
-          <p>These recommendations have been saved successfully!</p>
+      </div>
+      <div
+        class="book-recommendations-container"
+        :class="{
+          'showing-messages': errorOccured || recommendationsSaved,
+          'showing-validation': invalidFormSubmitted,
+        }"
+      >
+        <div class="panel-block" v-for="book in recommendations" :key="book.id">
+          <book-recommendation-box
+            @noteEdited="clearMessages()"
+            :book="book"
+          ></book-recommendation-box>
         </div>
-        <p class="control">
-          <input
-            :disabled="requestInProgress"
-            :value="friendName"
-            @input="updateFriendName"
-            class="input"
-            :class="{ 'is-danger': invalidFormSubmitted }"
-            type="text"
-            placeholder="Recommend these books to..."
-          />
-          <small v-if="invalidFormSubmitted" class="has-text-danger"
-            >You must enter a friend's name</small
-          >
-        </p>
       </div>
-    </div>
-    <div
-      class="book-recommendations-container"
-      :class="{
-        'showing-messages': errorOccured || recommendationsSaved,
-        'showing-validation': invalidFormSubmitted,
-      }"
-    >
-      <div class="panel-block" v-for="book in recommendations" :key="book.id">
-        <book-recommendation-box @noteEdited="clearMessages()" :book="book"></book-recommendation-box>
+      <div class="panel-block buttons">
+        <button
+          type="submit"
+          :disabled="noRecommendations || requestInProgress"
+          class="button is-primary"
+          :class="{ 'is-loading': requestInProgress }"
+        >
+          Save
+        </button>
+        <button
+          :disabled="noRecommendations || requestInProgress"
+          @click="clearRecommendationsList()"
+          class="button"
+        >
+          Clear
+        </button>
       </div>
-    </div>
-    <div class="panel-block buttons">
-      <button
-        @click="saveRecommendations()"
-        :disabled="noRecommendations || requestInProgress"
-        class="button is-primary"
-        :class="{ 'is-loading': requestInProgress }"
-      >
-        Save
-      </button>
-      <button
-        :disabled="noRecommendations || requestInProgress"
-        @click="clearRecommendationsList()"
-        class="button"
-      >
-        Clear
-      </button>
-    </div>
-  </nav>
+    </nav>
+  </form>
 </template>
 
 <script>

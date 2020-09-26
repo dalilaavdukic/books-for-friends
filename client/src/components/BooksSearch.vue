@@ -34,12 +34,12 @@
       <div v-if="foundBooks.length && !errorOccured">
         <books-found></books-found>
       </div>
-      <div v-if="errorOccured">
-        An error occured, please try refining your search and try again.
+      <div v-if="errorOccured" class="notification is-danger is-light">
+        <p>An error occured, please try refining your search and try again.</p>
       </div>
-      <div v-if="noResults">
-        Unfortunately, we couldn't find any books that match your search. Please
-        try searching something else.
+      <div v-if="noResults" class="notification is-warning is-light">
+        <p>Unfortunately, we couldn't find any books that match your search. Please
+        try searching something else.</p>
       </div>
     </div>
   </div>
@@ -99,6 +99,19 @@ export default {
     padding-right: 1rem;
     overflow-y: auto;
     height: calc(100vh - 16.5rem);
+  }
+  .buttons {
+    flex-wrap: nowrap;
+  }
+  .notification {
+    margin-left: 1rem;
+    height: calc(100vh - 16.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      text-align: center;
+    }
   }
 }
 </style>
