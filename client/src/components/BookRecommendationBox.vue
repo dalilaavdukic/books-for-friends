@@ -45,6 +45,7 @@ export default {
       this[REMOVE_BOOK_FROM_RECOMMENDATIONS](this.book);
     },
     updateNotes(e) {
+      this.$emit('noteEdited');
       this[EDIT_RECOMMENDATION]({
         notes: e.target.value,
         bookId: this.book.id,

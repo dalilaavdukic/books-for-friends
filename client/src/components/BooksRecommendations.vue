@@ -21,11 +21,11 @@
             :value="friendName"
             @input="updateFriendName"
             class="input"
-            :class="{ 'is-danger': !formValid && formSubmitted }"
+            :class="{ 'is-danger': invalidFormSubmitted }"
             type="text"
             placeholder="Recommend these books to..."
           />
-          <small v-if="!formValid && formSubmitted" class="has-text-danger"
+          <small v-if="invalidFormSubmitted" class="has-text-danger"
             >You must enter a friend's name</small
           >
         </p>
@@ -35,11 +35,11 @@
       class="book-recommendations-container"
       :class="{
         'showing-messages': errorOccured || recommendationsSaved,
-        'showing-validation': !formValid && formSubmitted,
+        'showing-validation': invalidFormSubmitted,
       }"
     >
       <div class="panel-block" v-for="book in recommendations" :key="book.id">
-        <book-recommendation-box :book="book"></book-recommendation-box>
+        <book-recommendation-box @noteEdited="clearMessages()" :book="book"></book-recommendation-box>
       </div>
     </div>
     <div class="panel-block buttons">
@@ -82,6 +82,14 @@ export default {
     formValid: function () {
       return this.friendName !== '';
     },
+    invalidFormSubmitted: function () {
+      return !this.formValid && this.formSubmitted;
+    },
+  },
+  watch: {
+    recommendations: function () {
+      this.clearMessages();
+    },
   },
   data() {
     return {
@@ -102,7 +110,12 @@ export default {
       this[CLEAR_RECOMMENDATIONS]();
     },
     updateFriendName(e) {
+      this.clearMessages();
       this[SET_FRIEND_NAME](e.target.value);
+    },
+    clearMessages() {
+      this.recommendationsSaved = false;
+      this.errorOccured = false;
     },
     saveRecommendations() {
       this.formSubmitted = true;
@@ -129,17 +142,19 @@ export default {
 .book-recommendations-container {
   width: 100%;
   overflow-y: auto;
-  height: calc(100vh - 24rem);
+  height: calc(100vh - 24.5rem);
   &.showing-messages {
-    height: calc(100vh - 23.5rem - 9rem);
+    height: calc(100vh - 24rem - 9rem);
   }
   &.showing-validation {
-    height: calc(100vh - 23.5rem - 2rem);
+    height: calc(100vh - 24rem - 2rem);
   }
 }
 .panel-block {
   &.buttons {
     justify-content: space-between;
+    padding-top: 1rem;
+    border-top: solid 2px whitesmoke;
     .button {
       width: 48%;
     }
