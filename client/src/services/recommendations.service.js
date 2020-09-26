@@ -1,9 +1,10 @@
+import axios from 'axios';
+
 export default {
   createRecommendations(recommendations) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(recommendations);
-      }, 5000);
-    });
+    console.log(recommendations);
+    return axios.get(
+      `http://localhost:3000/recommendations`
+    );
   }
 };
