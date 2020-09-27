@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import recommendations from './controllers/recommendations';
 
 const app = express();
@@ -10,6 +11,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
 recommendations(app);
 

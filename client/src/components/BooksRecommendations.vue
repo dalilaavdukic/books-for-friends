@@ -49,7 +49,7 @@
       <div class="panel-block buttons">
         <button
           type="submit"
-          :disabled="noRecommendations || requestInProgress"
+          :disabled="noRecommendations || requestInProgress || (!formValid && formSubmitted)"
           class="button is-primary"
           :class="{ 'is-loading': requestInProgress }"
         >
@@ -90,6 +90,9 @@ export default {
     invalidFormSubmitted: function () {
       return !this.formValid && this.formSubmitted;
     },
+    saveDisabled: function() {
+      return this.noRecommendations || this.requestInProgress || this.invalidFormSubmitted
+    }
   },
   watch: {
     recommendations: function () {
