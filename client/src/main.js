@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store';
+import { mapActions } from 'vuex';
 
 Vue.config.productionTip = false
 
@@ -8,6 +9,12 @@ new Vue(
   { 
     el: '#app',
     store,
-    render: h => h(App) 
-  }
+    render: h => h(App),
+    methods: {
+      ...mapActions(['initGapiClient'])
+    },
+    created() {
+      window.addEventListener("google-loaded", this.initGapiClient());
+    }
+  },
 );

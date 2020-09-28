@@ -5,6 +5,10 @@ import { CLEAR_RECOMMENDATIONS } from './mutation-types';
 import { CLEAR_FOUND_BOOKS } from './mutation-types';
 import { EDIT_RECOMMENDATION } from './mutation-types';
 import { SET_FRIEND_NAME } from './mutation-types';
+import { SET_CURRENT_USER } from './mutation-types';
+import { SET_IS_SIGNED_IN } from './mutation-types';
+import { SET_GAPI_CLIENT } from './mutation-types';
+import { SET_GOOGLE_AUTH } from './mutation-types';
 
 export default {
   [SET_FOUND_BOOKS](state, items) {
@@ -45,5 +49,17 @@ export default {
   },
   [SET_FRIEND_NAME](state, name) {
     state.friendName = name;
+  },
+  [SET_CURRENT_USER](state, user) {
+    state.currentUser = user;
+  },
+  [SET_IS_SIGNED_IN](state, isSignedIn) {;
+    state.isSignedIn = isSignedIn;
+  },
+  [SET_GAPI_CLIENT](state, gapiInstance) {
+    state.gapi = gapiInstance;
+  },
+  [SET_GOOGLE_AUTH](state, authInstance) {
+    state.googleAuth = authInstance;
   }
 };

@@ -65,23 +65,24 @@ export default {
     ...mapGetters(['foundBooks']),
   },
   methods: {
-    ...mapActions(['getBooks']),
+    ...mapActions(['getBooks', 'getPrivateBookshelve']),
     ...mapMutations([CLEAR_FOUND_BOOKS]),
     searchBooks() {
-      this.requestInProgress = true;
-      this.noResults = false;
-      this.getBooks(this.searchTerm)
-        .then(() => {
-          this.errorOccured = false;
-          this.requestInProgress = false;
-          this.noResults = this.foundBooks.length === 0;
-        })
-        .catch((error) => {
-          this.requestInProgress = false;
-          this.errorOccured = true;
-          this.noResults = false;
-          console.log(error);
-        });
+      this.getPrivateBookshelve();
+      // this.requestInProgress = true;
+      // this.noResults = false;
+      // this.getBooks(this.searchTerm)
+      //   .then(() => {
+      //     this.errorOccured = false;
+      //     this.requestInProgress = false;
+      //     this.noResults = this.foundBooks.length === 0;
+      //   })
+      //   .catch((error) => {
+      //     this.requestInProgress = false;
+      //     this.errorOccured = true;
+      //     this.noResults = false;
+      //     console.log(error);
+      //   });
     },
     clearSearch() {
       this.searchTerm = '';
