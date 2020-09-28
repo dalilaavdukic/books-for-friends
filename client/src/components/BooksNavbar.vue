@@ -25,12 +25,15 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
+        <div v-if="isSignedIn" class="navbar-item">
+          {{currentUser.name}}
+        </div>
         <div class="navbar-item">
           <div class="buttons">
-            <a @click="signIn()" class="button is-primary">
-              <strong>Sign in</strong>
+            <a v-if="!isSignedIn" @click="signIn()" class="button is-primary">
+              <strong>Sign in with Google</strong>
             </a>
-            <a @click="signOut()" class="button is-light">Sign out</a>
+            <a v-else @click="signOut()" class="button is-info is-light">Sign out</a>
           </div>
         </div>
       </div>
@@ -44,7 +47,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BooksNavbar',
   computed: {
-    ...mapGetters(['isSignedIn'])
+    ...mapGetters(['isSignedIn', 'currentUser'])
   },
   methods: {
     ...mapActions(['signIn', 'signOut'])

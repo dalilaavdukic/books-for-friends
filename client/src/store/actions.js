@@ -1,10 +1,12 @@
-/* eslint-disable */ 
+/* eslint-disable */
+
 import volumesService from '@/services/volumes.service';
 import recommendationsService from '@/services/recommendations.service';
 import { SET_FOUND_BOOKS } from './mutation-types';
 import { SET_GAPI_CLIENT } from './mutation-types';
 import { SET_IS_SIGNED_IN } from './mutation-types';
 import { SET_GOOGLE_AUTH } from './mutation-types';
+import { SET_CURRENT_USER } from './mutation-types';
 
 export default {
   getBooks({ commit }, searchTerm) {
@@ -31,17 +33,33 @@ export default {
   },
   initGapiClient({ commit, getters }) {
     gapi.load('client:auth2', () => {
-      gapi.client.init({
-        apiKey: 'AIzaSyAN5moNYZ9vD4IuYqcsddBekmWo5FW5PYA',
-        clientId: '302865508410-nbiuhuqjl51dul402lr6g2783boq4i7b.apps.googleusercontent.com',
-        scope: 'https://www.googleapis.com/auth/books'
-      }).then(() => {
-        commit( SET_GAPI_CLIENT, gapi);
-        commit( SET_GOOGLE_AUTH, gapi.auth2.getAuthInstance());
-        getters.googleAuth.isSignedIn.listen((isSignedIn) => {
-          commit(SET_IS_SIGNED_IN, isSignedIn)
+      gapi.client
+        .init({
+          apiKey: 'AIzaSyAN5moNYZ9vD4IuYqcsddBekmWo5FW5PYA',
+          clientId:
+            '302865508410-nbiuhuqjl51dul402lr6g2783boq4i7b.apps.googleusercontent.com',
+          scope: 'https://www.googleapis.com/auth/books'
+        })
+        .then(() => {
+          commit(SET_GAPI_CLIENT, gapi);
+          commit(SET_GOOGLE_AUTH, gapi.auth2.getAuthInstance());
+          commit(SET_IS_SIGNED_IN, getters.googleAuth.isSignedIn.get());
+          commit(
+            SET_CURRENT_USER,
+            getters.isSignedIn
+              ? getters.googleAuth.currentUser.get().getBasicProfile()
+              : undefined
+          );
+          getters.googleAuth.isSignedIn.listen(isSignedIn => {
+            commit(SET_IS_SIGNED_IN, isSignedIn);
+            commit(
+              SET_CURRENT_USER,
+              isSignedIn
+                ? getters.googleAuth.currentUser.get().getBasicProfile()
+                : undefined
+            );
+          });
         });
-      })
     });
   },
   signIn({ getters }) {
@@ -51,11 +69,14 @@ export default {
     getters.googleAuth.signOut();
   },
   getPrivateBookshelve({ getters }) {
-    getters.gapi.client.request({
-      path: 'https://www.googleapis.com/books/v1/users/102982485954716983138/bookshelves/1001/volumes',
-      method: 'GET'
-    }).then(response => {
-      console.log(response)
-    })
+    getters.gapi.client
+      .request({
+        path:
+          'https://www.googleapis.com/books/v1/users/102982485954716983138/bookshelves/1001/volumes',
+        method: 'GET'
+      })
+      .then(response => {
+        console.log(response);
+      });
   }
 };

@@ -22,5 +22,16 @@ export default {
   },
   googleAuth: state => {
     return state.googleAuth;
+  },
+  currentUser: state => {
+    if (state.currentUser) {
+      return {
+        name: state.currentUser.getName(),
+        email: state.currentUser.getEmail(),
+        img: state.currentUser.getImageUrl()
+      }
+    } else {
+      return undefined;
+    }
   }
 };

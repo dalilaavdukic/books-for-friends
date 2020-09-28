@@ -53,7 +53,7 @@ export default {
   [SET_CURRENT_USER](state, user) {
     state.currentUser = user;
   },
-  [SET_IS_SIGNED_IN](state, isSignedIn) {;
+  [SET_IS_SIGNED_IN](state, isSignedIn) {
     state.isSignedIn = isSignedIn;
   },
   [SET_GAPI_CLIENT](state, gapiInstance) {
