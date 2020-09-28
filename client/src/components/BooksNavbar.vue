@@ -33,7 +33,7 @@
             <a v-if="!isSignedIn" @click="signIn()" class="button is-primary">
               <strong>Sign in with Google</strong>
             </a>
-            <a v-else @click="signOut()" class="button is-info is-light">Sign out</a>
+            <a v-else @click="signOut()" class="button is-danger is-light">Sign out</a>
           </div>
         </div>
       </div>

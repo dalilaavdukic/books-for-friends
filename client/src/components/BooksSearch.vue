@@ -30,7 +30,8 @@
         </div>
       </div>
     </form>
-    <div class="search-results">
+    <a v-if="isSignedIn" @click="getPrivateBookshelve()">Recommend from my private bookshelf</a>
+    <div class="search-results" :class="{'is-signed-in': isSignedIn}">
       <div v-if="foundBooks.length && !errorOccured">
         <books-found></books-found>
       </div>
@@ -62,27 +63,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['foundBooks']),
+    ...mapGetters(['foundBooks', 'isSignedIn']),
   },
   methods: {
     ...mapActions(['getBooks', 'getPrivateBookshelve']),
     ...mapMutations([CLEAR_FOUND_BOOKS]),
     searchBooks() {
-      this.getPrivateBookshelve();
-      // this.requestInProgress = true;
-      // this.noResults = false;
-      // this.getBooks(this.searchTerm)
-      //   .then(() => {
-      //     this.errorOccured = false;
-      //     this.requestInProgress = false;
-      //     this.noResults = this.foundBooks.length === 0;
-      //   })
-      //   .catch((error) => {
-      //     this.requestInProgress = false;
-      //     this.errorOccured = true;
-      //     this.noResults = false;
-      //     console.log(error);
-      //   });
+      this.requestInProgress = true;
+      this.noResults = false;
+      this.getBooks(this.searchTerm)
+        .then(() => {
+          this.errorOccured = false;
+          this.requestInProgress = false;
+          this.noResults = this.foundBooks.length === 0;
+        })
+        .catch((error) => {
+          this.requestInProgress = false;
+          this.errorOccured = true;
+          this.noResults = false;
+          console.log(error);
+        });
     },
     clearSearch() {
       this.searchTerm = '';
@@ -107,6 +107,9 @@ export default {
       padding-right: 1rem;
       overflow-y: auto;
       height: calc(100vh - 16.5rem);
+      &.is-signed-in {
+        height: calc(100vh - 17.75rem);
+      }
     }
   }
   .buttons {

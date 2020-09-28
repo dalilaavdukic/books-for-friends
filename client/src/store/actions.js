@@ -32,17 +32,20 @@ export default {
     );
   },
   initGapiClient({ commit, getters }) {
+    const apiKey = process.env.VUE_APP_API_KEY;
+    const clientId = process.env.VUE_APP_CLIENT_ID;
+    const scope = process.env.VUE_APP_API_SCOPE;
     gapi.load('client:auth2', () => {
       gapi.client
         .init({
-          apiKey: 'AIzaSyAN5moNYZ9vD4IuYqcsddBekmWo5FW5PYA',
-          clientId:
-            '302865508410-nbiuhuqjl51dul402lr6g2783boq4i7b.apps.googleusercontent.com',
-          scope: 'https://www.googleapis.com/auth/books'
+          apiKey: apiKey,
+          clientId: clientId,
+          scope: scope
         })
         .then(() => {
           commit(SET_GAPI_CLIENT, gapi);
           commit(SET_GOOGLE_AUTH, gapi.auth2.getAuthInstance());
+          // initial state setup
           commit(SET_IS_SIGNED_IN, getters.googleAuth.isSignedIn.get());
           commit(
             SET_CURRENT_USER,
@@ -50,6 +53,7 @@ export default {
               ? getters.googleAuth.currentUser.get().getBasicProfile()
               : undefined
           );
+          // setup listener for whener sign in status changes
           getters.googleAuth.isSignedIn.listen(isSignedIn => {
             commit(SET_IS_SIGNED_IN, isSignedIn);
             commit(
@@ -68,15 +72,16 @@ export default {
   signOut({ getters }) {
     getters.googleAuth.signOut();
   },
-  getPrivateBookshelve({ getters }) {
+  getPrivateBookshelve({ commit,getters }) {
+    const api = process.env.VUE_APP_GOOGLE_BOOKS_API;
     getters.gapi.client
       .request({
         path:
-          'https://www.googleapis.com/books/v1/users/102982485954716983138/bookshelves/1001/volumes',
+          `${api}/mylibrary/bookshelves/1001/volumes`,
         method: 'GET'
       })
       .then(response => {
-        console.log(response);
+        commit(SET_FOUND_BOOKS, response.result.items);
       });
   }
 };
