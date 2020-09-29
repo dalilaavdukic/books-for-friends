@@ -69,8 +69,9 @@ export default {
   signIn({ getters }) {
     getters.googleAuth.signIn();
   },
-  signOut({ getters }) {
+  signOut({ commit, getters }) {
     getters.googleAuth.signOut();
+    commit(SET_FOUND_BOOKS, [])
   },
   getPrivateBookshelf({ commit,getters }) {
     const api = process.env.VUE_APP_GOOGLE_BOOKS_API;
