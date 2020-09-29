@@ -53,7 +53,7 @@ export default {
               ? getters.googleAuth.currentUser.get().getBasicProfile()
               : undefined
           );
-          // setup listener for whener sign in status changes
+          // setup listener for whenever sign in status changes
           getters.googleAuth.isSignedIn.listen(isSignedIn => {
             commit(SET_IS_SIGNED_IN, isSignedIn);
             commit(
@@ -72,16 +72,25 @@ export default {
   signOut({ getters }) {
     getters.googleAuth.signOut();
   },
-  getPrivateBookshelve({ commit,getters }) {
+  getPrivateBookshelf({ commit,getters }) {
     const api = process.env.VUE_APP_GOOGLE_BOOKS_API;
-    getters.gapi.client
+    return new Promise((resolve, reject) => {
+      getters.gapi.client
       .request({
         path:
           `${api}/mylibrary/bookshelves/1001/volumes`,
         method: 'GET'
       })
       .then(response => {
-        commit(SET_FOUND_BOOKS, response.result.items);
+        if (response.result.totalItems) {
+          commit(SET_FOUND_BOOKS, response.result.items);
+        } else {
+          commit(SET_FOUND_BOOKS, []);
+        }
+        resolve(response);
+      }).catch(response => {
+        reject(response.result.error.message);
       });
+    })
   }
 };
