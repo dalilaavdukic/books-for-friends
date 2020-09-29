@@ -13,7 +13,7 @@ new Vue(
     methods: {
       ...mapActions(['initGapiClient'])
     },
-    created() {
+    mounted() {
       window.addEventListener("google-loaded", this.initGapiClient());
     }
   },

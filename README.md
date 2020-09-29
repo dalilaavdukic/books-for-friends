@@ -24,7 +24,7 @@ Once you are happy with the selected books you can **add notes** to each book re
 The user can use this app without signing in. In that case the user searches for books publicly available through the Books API. However, sign in through google is offered in the app. Signing in with your google account enables one additional feature, which is to **load books from your private bookshelf** and recommend them. The books in the private bookshelf are received by clicking on 'Recommend from my private bookshelf' below the search field which only appears if the user is signed in. 
 
 ## Project setup
-Both the web app (cleint) and server must be running, in order for the project to be fully functional.
+Both the web app (client) and server must be running, in order for the project to be fully functional.
 
 ### Client
 Before starting the client for the first time, add an appropriate .env file to the root folder. The file must contain the following values:
@@ -45,7 +45,7 @@ npm run serve
 The client will be running at: http://localhost:8080/
 ### Server
 ```
-cd client
+cd server
 npm install
 npm start
 ```
