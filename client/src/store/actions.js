@@ -79,7 +79,7 @@ export default {
       getters.gapi.client
       .request({
         path:
-          `${api}/mylibrary/bookshelves/1001/volumes`,
+          `${api}/mylibrary/bookshelves/1001/volumes?maxResults=20`,
         method: 'GET'
       })
       .then(response => {
