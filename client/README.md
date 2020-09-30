@@ -12,6 +12,8 @@ VUE_APP_CLIENT_ID=<YOUR_CLIENT_ID>
 VUE_APP_API_SCOPE=https://www.googleapis.com/auth/books
 ```
 
+I can provide a Google API key and Client Id or you can use your own.
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
